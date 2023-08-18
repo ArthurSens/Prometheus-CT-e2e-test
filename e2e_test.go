@@ -10,7 +10,6 @@ import (
 	"github.com/efficientgo/core/testutil"
 	"github.com/efficientgo/e2e"
 	e2edb "github.com/efficientgo/e2e/db"
-	e2einteractive "github.com/efficientgo/e2e/interactive"
 	e2emon "github.com/efficientgo/e2e/monitoring"
 	"github.com/prometheus/client_golang/api"
 	promv1 "github.com/prometheus/client_golang/api/prometheus/v1"
@@ -58,7 +57,7 @@ scrape_configs:
 	// Open example in browser.
 	exampleAppURL := fmt.Sprintf("http://%s", app.Endpoint("http"))
 	fmt.Printf("=== Example application URL: %s\n", exampleAppURL)
-	testutil.Ok(t, e2einteractive.OpenInBrowser(exampleAppURL))
+	// testutil.Ok(t, e2einteractive.OpenInBrowser(exampleAppURL))
 
 	fmt.Println("=== I need at least 5 requests!")
 	testutil.Ok(t, app.WaitSumMetricsWithOptions(
@@ -76,7 +75,7 @@ scrape_configs:
 	// Now opening Prometheus in browser as well.
 	prometheusURL := fmt.Sprintf("http://%s", p1.Endpoint("http"))
 	fmt.Printf("=== Prometheus URL: %s\n", prometheusURL)
-	testutil.Ok(t, e2einteractive.OpenInBrowser(prometheusURL))
+	// testutil.Ok(t, e2einteractive.OpenInBrowser(prometheusURL))
 
 	// We're all done!
 	fmt.Println("=== Setup finished!")

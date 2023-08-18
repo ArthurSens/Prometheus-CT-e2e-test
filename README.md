@@ -13,5 +13,5 @@ make docker-build
 Now you can run the test with
 
 ```
-go test -timeout 600s -run ^TestExampleApp$ github.com/ArthurSens/Prometheus-CT-e2e-test
+make tests
 ```
