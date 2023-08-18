@@ -10,20 +10,29 @@ import (
 )
 
 func main() {
-	requestsTotal := prometheus.NewCounter(prometheus.CounterOpts{
+	requestsTotal := prometheus.NewCounterVec(prometheus.CounterOpts{
 		Name: "http_requests_total",
 		Help: "Total amount of HTTP requests",
-	})
+	}, []string{"foo"})
 
 	reg := prometheus.NewRegistry()
 	reg.MustRegister(requestsTotal)
 
 	go func() {
 		for {
-			requestsTotal.Inc()
-			time.Sleep(2 * time.Second)
+			requestsTotal.WithLabelValues("bar").Inc()
+			time.Sleep(1 * time.Second)
 		}
 	}()
+
+	go func ()  {
+		for {
+			requestsTotal.DeleteLabelValues("bar")
+			time.Sleep(20 * time.Second)
+		}
+	}()
+
+
 
 	http.Handle(
 		"/metrics", promhttp.HandlerFor(
